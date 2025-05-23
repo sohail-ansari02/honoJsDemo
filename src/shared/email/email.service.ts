@@ -5,11 +5,15 @@ import type { EmailPayload } from "./email.types";
 
 export class EmailService {
 	private static _instance: EmailService;
-	private transporter: Transporter;
+	private transporter!: Transporter;
 
 	// Make constructor private to prevent external instantiation for singleton
 	private constructor() {
-		// Configure email transporter
+		this.initTransporter();
+	}
+
+	// Configure email transporter
+	private initTransporter() {
 		this.transporter = createTransport({
 			service: "Gmail",
 			host: "smtp.gmail.com",
@@ -21,7 +25,6 @@ export class EmailService {
 			},
 		});
 	}
-
 	public static get instance(): EmailService {
 		if (!EmailService._instance) {
 			EmailService._instance = new EmailService();
@@ -29,6 +32,14 @@ export class EmailService {
 		return EmailService._instance;
 	}
 
+	/**
+	 * Sends an email using the configured transporter.
+	 * Validates the recipient email before sending.
+	 *
+	 * @param {EmailPayload} payload - An object containing `to`, `subject`, and `html` fields
+	 * @throws {Error} If the email is invalid or sending fails
+	 * @returns {void}
+	 */
 	async sendEmail(payload: EmailPayload) {
 		const isValidEmail = await this.isEmailExistAndValid(payload.to);
 		if (!isValidEmail) {
