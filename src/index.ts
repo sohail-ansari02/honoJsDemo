@@ -3,7 +3,7 @@ import { Hono } from "hono";
 const app = new Hono();
 
 app.get("/", (c) => {
-	return c.text("Hello Hono!");
+	return c.text(`Hello Hono! ${Bun.env.PORTT}`);
 });
 
 // Simple recursive Fibonacci (not efficient for large numbers)

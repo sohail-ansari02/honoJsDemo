@@ -10,7 +10,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "hono": "^4.7.10"
+    "hono": "^4.7.10",
+    "nodemailer": "^7.0.3"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
