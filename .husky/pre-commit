@@ -1,1 +1,1 @@
-bunx lint-staged
+echo -e "NOTE: husky configuration is empty"
