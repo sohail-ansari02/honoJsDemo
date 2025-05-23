@@ -2,12 +2,16 @@
   "name": "hello-world",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "start": "bun dist/index.js"
+    "build:dev": "bun build src/index.ts --outfile dist/index.js --target bun --sourcemap",
+    "build:prod": "bun build src/index.ts --outfile dist/index.js --target bun --minify --env-file=.env.production",
+    "format": "bunx biome format --write ./src",
+    "lint": "bunx biome check --write ./src"
   },
   "dependencies": {
-    "hono": "^4.7.9"
+    "hono": "^4.7.10"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/bun": "latest"
   }
 }
