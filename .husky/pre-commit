@@ -1,4 +1,14 @@
-echo -e "NOTE: husky configuration is empty"
+# echo -e "NOTE: husky configuration is empty"
 
-# Restage the files those are modified
-git update-index --again
+# Get staged files that are inside ./src and end with .ts,.scss and .html
+staged_files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^src/.*\.(ts|scss|html)$')
+
+# Exit early if no stagged files
+[ -z "$staged_files" ] && echo "No staged files to lint/format." && exit 0
+
+# Format and fix-lint only those files
+bunx biome format --write $staged_files
+bunx biome check --write $staged_files
+
+# Re-stage the files that were fixed
+git add $staged_files
