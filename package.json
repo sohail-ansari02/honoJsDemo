@@ -9,6 +9,8 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"@types/nodemailer": "^6.4.17",
+		"deep-email-validator": "^0.1.21",
 		"hono": "^4.7.10",
 		"nodemailer": "^7.0.3"
 	},
