@@ -1,24 +1,28 @@
 {
-	"name": "hello-world",
-	"scripts": {
-		"dev": "bun run --hot src/index.ts",
-		"build:dev": "bun build src/index.ts --outfile dist/index.js --target bun --sourcemap",
-		"build:prod": "bun build src/index.ts --outfile dist/index.js --target bun --minify --env-file=.env.production",
-		"format": "bunx biome format --write ./src",
-		"lint": "bunx biome check --write ./src",
-		"fix-lint": "bunx biome check ./src --write",
-		"prepare": "husky"
-	},
-	"dependencies": {
-		"hono": "^4.7.10"
-	},
-	"lint-staged": {
-		"*.{ts,js,json,css,md}": "bun run format && bun run lint"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@types/bun": "latest",
-		"husky": "^9.1.7",
-		"lint-staged": "^16.0.0"
-	}
+  "name": "hello-world",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "build:dev": "bun build src/index.ts --outfile dist/index.js --target bun --sourcemap",
+    "build:prod": "bun build src/index.ts --outfile dist/index.js --target bun --minify --env-file=.env.production",
+    "format": "bunx biome format --write ./src",
+    "lint": "bunx biome check --write ./src",
+    "fix-lint": "bunx biome check ./src --write",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "npm run format",
+      "npm run lint",
+      "git add ."
+    ]
+  },
+  "dependencies": {
+    "hono": "^4.7.10"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0"
+  }
 }
