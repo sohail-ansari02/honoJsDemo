@@ -6,13 +6,15 @@
     "build:prod": "bun build src/index.ts --outfile dist/index.js --target bun --minify --env-file=.env.production",
     "format": "bunx biome format --write ./src",
     "lint": "bunx biome check --write ./src",
-    "fix-lint": "bunx biome check ./src --write"
+    "fix-lint": "bunx biome check ./src --write",
+    "prepare": "husky"
   },
   "dependencies": {
     "hono": "^4.7.10"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "husky": "^9.1.7"
   }
 }
