@@ -5,7 +5,8 @@
     "build:dev": "bun build src/index.ts --outfile dist/index.js --target bun --sourcemap",
     "build:prod": "bun build src/index.ts --outfile dist/index.js --target bun --minify --env-file=.env.production",
     "format": "bunx biome format --write ./src",
-    "lint": "bunx biome check --write ./src"
+    "lint": "bunx biome check --write ./src",
+    "fix-lint": "bunx biome check ./src --write"
   },
   "dependencies": {
     "hono": "^4.7.10"
