@@ -3,6 +3,7 @@ declare namespace NodeJS {
 		PORT: string;
 		EMAIL_USER: string;
 		EMAIL_PASS: string;
-
+		DEBUG: "true" | "false";
+		ENV: "DEV" | "PROD";
 	}
 }

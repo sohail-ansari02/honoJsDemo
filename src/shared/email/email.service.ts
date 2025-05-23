@@ -30,12 +30,21 @@ export class EmailService {
 	}
 
 	async sendEmail(payload: EmailPayload) {
-		await this.transporter.sendMail({
-			from: `${BRAND_NAME} ${process.env.EMAIL_USER}`,
-			to: payload.to,
-			subject: payload.subject,
-			html: payload.html,
-		});
+		const isValidEmail = await this.isEmailExistAndValid(payload.to);
+		if (!isValidEmail) {
+			throw new Error(`${payload.to} is invalid email address`);
+		}
+
+		try {
+			await this.transporter.sendMail({
+				from: `${BRAND_NAME} ${process.env.EMAIL_USER}`,
+				to: payload.to,
+				subject: payload.subject,
+				html: payload.html,
+			});
+		} catch (error) {
+			throw new Error("Failed to send email");
+		}
 	}
 
 	private async isEmailExistAndValid(email: string) {

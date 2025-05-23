@@ -1,3 +1,4 @@
+import { swaggerUI } from "@hono/swagger-ui";
 import { Hono } from "hono";
 import { EmailService } from "./shared/email/email.service";
 
@@ -14,17 +15,23 @@ app.get("/", async (c) => {
 });
 
 app.notFound((c) => {
-	return c.text(
-		"404 - Sorry, the resource you're looking for was not found. Maybe it never existed?",
-		404,
-	);
+	return c.text("404-NotFound", 404);
 });
 app.onError((err, c) => {
 	console.error(`${err}`);
-	return c.text(
-		"🔥 Server Error 500: The server caught fire! (Not literally... yet.) Please stand by while we call the digital firefighters.",
-		500,
-	);
+	return c.text("500-ServerError", 500);
 });
+
+if (process.env.ENV === "DEV") {
+	// Serve OpenAPI JSON at /doc
+	app.get("/doc", {
+		openapi: "3.1.0",
+		info: {
+			title: "My API",
+			version: "1.0.0",
+		},
+	});
+	app.get("/ui", swaggerUI({ url: "/doc" }));
+}
 
 export default app;
