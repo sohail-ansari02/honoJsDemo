@@ -10,9 +10,7 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"@hono/swagger-ui": "^0.5.1",
 		"@types/nodemailer": "^6.4.17",
-		"add": "^2.0.6",
 		"deep-email-validator": "^0.1.21",
 		"hono": "^4.7.10",
 		"nodemailer": "^7.0.3"
