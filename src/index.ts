@@ -14,7 +14,7 @@ app.onError((err, c) => {
 app.get("/", async (c) => {
 	try {
 		const es = EmailService.instance;
-		es.getTemplate("", {});
+		await es.getTemplate("", {});
 
 		// await es.sendEmail({
 		// 	subject: "test",

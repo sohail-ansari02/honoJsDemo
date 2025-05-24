@@ -5,7 +5,7 @@ export class FileUtil {
       const content = await file.text();
       return content;
     } catch {
-      throw new Error("Failed to read file");
+      throw new Error(`Failed to read file : ${filePath}`);
     }
   }
 }
