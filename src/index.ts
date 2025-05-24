@@ -1,5 +1,5 @@
+import { EmailService } from "@shared/email/email.service";
 import { Hono } from "hono";
-import { EmailService } from "./shared/email/email.service";
 
 const app = new Hono();
 
@@ -14,14 +14,14 @@ app.onError((err, c) => {
 app.get("/", async (c) => {
 	try {
 		const es = EmailService.instance;
-		await es.getTemplate("", {});
+		// await es.getTemplate("", {});
 
-		// await es.sendEmail({
-		// 	subject: "test",
-		// 	to: "syansari02@gmail.com",
-		// 	html: "hi",
-		// });
-		// return c.text(`Hello Hono! ${Bun.env.PORT}`);
+		await es.sendEmail({
+			subject: "test",
+			to: "syansari02@gmail.com",
+			html: "hi",
+		});
+		return c.text(`Hello Hono! ${Bun.env.PORT}`);
 	} catch (error) {
 		return c.text(`${error}`, 500);
 	}

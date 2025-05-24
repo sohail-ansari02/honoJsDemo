@@ -1,7 +1,7 @@
+import { BRAND_NAME } from "@config/constants";
+import { FileUtil } from "@core/utils/file";
 import { validate as emailValidate } from "deep-email-validator";
 import { type Transporter, createTransport } from "nodemailer";
-import { BRAND_NAME } from "../../../config/constants";
-import { FileUtil } from "../../../core/utils/file";
 import type { EmailPayload } from "./email.types";
 
 export class EmailService {
