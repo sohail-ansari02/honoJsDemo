@@ -14,12 +14,14 @@ app.onError((err, c) => {
 app.get("/", async (c) => {
 	try {
 		const es = EmailService.instance;
-		await es.sendEmail({
-			subject: "test",
-			to: "syansari02@gmail.com",
-			html: "hi",
-		});
-		return c.text(`Hello Hono! ${Bun.env.PORT}`);
+		es.getTemplate("", {});
+
+		// await es.sendEmail({
+		// 	subject: "test",
+		// 	to: "syansari02@gmail.com",
+		// 	html: "hi",
+		// });
+		// return c.text(`Hello Hono! ${Bun.env.PORT}`);
 	} catch (error) {
 		return c.text(`${error}`, 500);
 	}

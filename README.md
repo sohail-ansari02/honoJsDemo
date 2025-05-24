@@ -32,11 +32,11 @@ src/
 │       ├── order.routes.ts
 │       ├── order.service.ts
 │       └── order.types.ts
-├── core/                      # Shared app-wide modules
+├── core/                      # should be about runtime support (middlewares, utilities) & Shared app-wide modules
 │   ├── middleware/            # Middleware (auth, logging, etc.)
 │   │   └── auth.ts
 │   └── utils/                 # Utility helpers (logger, etc.)
 │       └── logger.ts
-├── config/                    # Config loaders, env validation, constants
+├── config/                    # about environment setup (app settings, feature toggles, credentials, etc.) &  Config loaders, env validation, constants
 │   └── env.ts
 └── server.ts                  # Server startup (if separate from app.ts)

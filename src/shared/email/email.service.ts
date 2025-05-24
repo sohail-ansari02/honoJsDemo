@@ -1,6 +1,7 @@
 import { validate as emailValidate } from "deep-email-validator";
 import { type Transporter, createTransport } from "nodemailer";
 import { BRAND_NAME } from "../../../config/constants";
+import { FileUtil } from "../../../core/utils/file";
 import type { EmailPayload } from "./email.types";
 
 export class EmailService {
@@ -10,6 +11,13 @@ export class EmailService {
 	// Make constructor private to prevent external instantiation for singleton
 	private constructor() {
 		this.initTransporter();
+	}
+
+	static get instance(): EmailService {
+		if (!EmailService._instance) {
+			EmailService._instance = new EmailService();
+		}
+		return EmailService._instance;
 	}
 
 	// Configure email transporter
@@ -25,11 +33,9 @@ export class EmailService {
 			},
 		});
 	}
-	public static get instance(): EmailService {
-		if (!EmailService._instance) {
-			EmailService._instance = new EmailService();
-		}
-		return EmailService._instance;
+
+	private async isEmailExistAndValid(email: string) {
+		return (await emailValidate(email)).valid;
 	}
 
 	/**
@@ -58,7 +64,13 @@ export class EmailService {
 		}
 	}
 
-	private async isEmailExistAndValid(email: string) {
-		return (await emailValidate(email)).valid;
+	async getTemplate<T = object>(templateName: string, data: T) {
+		const filePath = `${process.cwd()}/public/demo.txt`;
+		const fileContent = await FileUtil.readFile(filePath);
+		console.log(fileContent);
+
+		// // Now compile using your template engine (e.g., Handlebars)
+		// const template = Handlebars.compile(content);
+		// return template(data);
 	}
 }
