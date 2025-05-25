@@ -13,14 +13,18 @@ export type Meta = {
 };
 
 export class ApiResponse<T> {
-	constructor(
+	private constructor(
 		public readonly success: boolean,
 		public readonly status: ContentfulStatusCode,
 		public readonly message: string,
 		public readonly data: T | null = null,
 		public readonly meta: Meta = {},
 		public readonly errors: string[] = [],
-	) {}
+	) {
+		throw new Error(
+			"ApiResponse: for best pratces I made constructor private, so developer will always use statis method `success` and `error`",
+		);
+	}
 
 	static success<T>(
 		data: T,
