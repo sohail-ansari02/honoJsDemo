@@ -1,3 +1,5 @@
+import { HTTPException } from "hono/http-exception";
+
 export class FileUtil {
 	static async readFile(filePath: string) {
 		try {
@@ -5,7 +7,9 @@ export class FileUtil {
 			const content = await file.text();
 			return content;
 		} catch {
-			throw new Error(`Failed to read file : ${filePath}`);
+			throw new HTTPException(500, {
+				message: `Failed to read file: ${filePath}}`,
+			});
 		}
 	}
 }

@@ -1,6 +1,7 @@
 import { BRAND_NAME } from "@config/constants";
 import { FileUtil } from "@core/utils/file";
 import { validate as emailValidate } from "deep-email-validator";
+import { HTTPException } from "hono/http-exception";
 import { type Transporter, createTransport } from "nodemailer";
 import type { EmailPayload } from "./email.types";
 
@@ -49,7 +50,9 @@ export class EmailService {
 	async sendEmail(payload: EmailPayload) {
 		const isValidEmail = await this.isEmailExistAndValid(payload.to);
 		if (!isValidEmail) {
-			throw new Error(`${payload.to} is invalid email address`);
+			throw new HTTPException(400, {
+				message: `${payload.to} is invalid email address`,
+			});
 		}
 
 		try {
@@ -60,12 +63,14 @@ export class EmailService {
 				html: payload.html,
 			});
 		} catch (error) {
-			throw new Error("Failed to send email");
+			throw new HTTPException(502, {
+				message: `Failed to send email to ${payload.to}`,
+			});
 		}
 	}
 
 	async getTemplate<T = object>(templateName: string, data: T) {
-		const filePath = `${process.cwd()}/public/demo.txt`;
+		const filePath = `${process.cwd()}/public/${templateName}`;
 		const fileContent = await FileUtil.readFile(filePath);
 		console.log(fileContent);
 

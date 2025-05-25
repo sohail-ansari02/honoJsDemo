@@ -1,12 +1,13 @@
 {
-	"compilerOptions": {
-		"strict": true,
-		"baseUrl": "./src",
-		"paths": {
-			"@core/*": ["core/*"],
-			"@shared/*": ["shared/*"],
-			"@features/*": ["features/*"],
-			"@config/*": ["config/*"]
-		}
-	}
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@shared/*": ["shared/*"],
+      "@features/*": ["features/*"],
+      "@config/*": ["config/*"]
+    },
+    "allowSyntheticDefaultImports": true
+  }
 }
