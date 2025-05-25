@@ -39,11 +39,19 @@ export class ApiResponse<T> {
 		message: string,
 		status: ContentfulStatusCode = HttpStatus.INTERNAL_SERVER_ERROR,
 		meta?: Meta,
+		errors?: string[],
 	): ApiResponse<null> {
-		return new ApiResponse(false, status, message, null, {
-			timestamp: Date.now(),
-			...meta,
-		});
+		return new ApiResponse(
+			false,
+			status,
+			message,
+			null,
+			{
+				timestamp: Date.now(),
+				...meta,
+			},
+			errors,
+		);
 	}
 
 	toResponse(c: Context): Response {
