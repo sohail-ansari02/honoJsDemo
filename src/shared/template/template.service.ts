@@ -1,6 +1,9 @@
-import { TEMPLATES_PATH, TEMPLATE_FILE_EXT } from "@config/constants";
+import {
+	TEMPLATES_PATH,
+	TEMPLATE_FILE_EXT,
+} from "@config/constants/template.const";
+import type { TemplateName } from "@config/constants/template.types";
 import { FileUtil } from "@core/utils/file";
-import { HTTPException } from "hono/http-exception";
 import Mustache from "mustache";
 
 export class TemplateService {
@@ -16,15 +19,15 @@ export class TemplateService {
 		return TemplateService._instance;
 	}
 
-	async render<T>(templateName: string, data: T) {
+	async render<T>(templateName: TemplateName, data: T) {
 		try {
-			const filePath = `${TEMPLATES_PATH}/${templateName}. ${TEMPLATE_FILE_EXT}`;
+			const filePath = `${TEMPLATES_PATH}/${templateName}.${TEMPLATE_FILE_EXT}`;
 			const content = await FileUtil.readFile(filePath);
 			return Mustache.render(content, data);
 		} catch (e) {
-			throw new HTTPException(500, {
-				message: `Failed to render ${templateName} template`,
-			});
+			throw new Error(
+				`Failed to render ${templateName}.${TEMPLATE_FILE_EXT} template`,
+			);
 		}
 	}
 }

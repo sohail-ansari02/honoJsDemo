@@ -1,29 +1,36 @@
-import { TemplateService } from "@shared/template/template.service";
+import { ApiResponse } from "@core/classes/apiResponse";
+import { HttpStatus } from "@core/enums/http-status.enum";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 
 const app = new Hono();
 
 app.notFound((c) => {
-	return c.text("404-NotFound", 404);
+	return ApiResponse.error("NOT FOUND", HttpStatus.NOT_FOUND).toResponse(c);
 });
 app.onError((err, c) => {
-	console.log(err);
 	if (err instanceof HTTPException) {
-		return c.text(` ${err.status} - custom err-  ${err}`, err.status);
+		return ApiResponse.error(err.message, err.status).toResponse(c);
 	}
-	return c.text("Internal Server Error", 500);
+
+	return ApiResponse.error(
+		"Internal Server Error",
+		HttpStatus.INTERNAL_SERVER_ERROR,
+	).toResponse(c);
 });
 
 app.get("/", async (c) => {
-	try {
-		const res = await TemplateService.instance.render("demo", { name: "mj" });
-		return c.html(`Hello Hono! <br/> ${res}`);
-	} catch (error) {
-		throw new HTTPException(500, {
-			message: error instanceof Error ? error.message : "Unknown error",
-		});
-	}
+	// return ApiResponse.success({}).toResponse(c);
+	// try {
+	//   const res = await TemplateService.instance.render("order-recieved", {
+	//     name: "abcd",
+	//   });
+	//   return c.html(`Hello Hono! <br/> ${res}`);
+	// } catch (error) {
+	//   throw new HTTPException(HttpStatus.INTERNAL_SERVER_ERROR, {
+	//     message: error instanceof Error ? error.message : "Unknown error",
+	//   });
+	// }
 });
 
 export default app;
