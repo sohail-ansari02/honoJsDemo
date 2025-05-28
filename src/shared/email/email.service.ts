@@ -23,9 +23,9 @@ export class EmailService {
 	// Configure email transporter
 	private initTransporter() {
 		this.transporter = createTransport({
-			service: "Gmail",
-			host: "smtp.gmail.com",
-			port: 465,
+			service: process.env.EMAIL_SMTP_SERVICE,
+			host: process.env.EMAIL_SMTP_HOST,
+			port: Number(process.env.EMAIL_SMTP_PORT),
 			secure: true,
 			auth: {
 				user: process.env.EMAIL_USER,
