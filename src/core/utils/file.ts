@@ -1,4 +1,7 @@
 export class FileUtil {
+	// prevent developers to create instance of it
+	private constructor() {}
+
 	static async readFile(filePath: string) {
 		try {
 			const file = Bun.file(filePath);

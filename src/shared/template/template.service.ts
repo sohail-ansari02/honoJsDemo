@@ -1,12 +1,12 @@
 import {
-	TEMPLATES_PATH,
+	EMAIL_TEMPLATES_PATH,
 	TEMPLATE_FILE_EXT,
 } from "@config/constants/template.const";
-import type { TemplateName } from "@config/constants/template.types";
+import type { EmailTemplateName } from "@config/constants/template.types";
 import { FileUtil } from "@core/utils/file";
 import Mustache from "mustache";
 
-export class TemplateService {
+class TemplateService {
 	private static _instance: TemplateService;
 
 	// Make constructor private to prevent external instantiation for singleton
@@ -19,9 +19,9 @@ export class TemplateService {
 		return TemplateService._instance;
 	}
 
-	async render<T>(templateName: TemplateName, data: T) {
+	async render<T>(templateName: EmailTemplateName, data: T) {
 		try {
-			const filePath = `${TEMPLATES_PATH}/${templateName}.${TEMPLATE_FILE_EXT}`;
+			const filePath = `${EMAIL_TEMPLATES_PATH}/${templateName}.${TEMPLATE_FILE_EXT}`;
 			const content = await FileUtil.readFile(filePath);
 			return Mustache.render(content, data);
 		} catch (e) {
@@ -31,3 +31,4 @@ export class TemplateService {
 		}
 	}
 }
+export const templateService = TemplateService.instance;

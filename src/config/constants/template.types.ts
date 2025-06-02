@@ -1,3 +1,3 @@
-import type { TEMPLATE_NAMES } from "./template.const";
+import type { EMAIL_TEMPLATE_NAMES } from "./template.const";
 
-export type TemplateName = (typeof TEMPLATE_NAMES)[number];
+export type EmailTemplateName = (typeof EMAIL_TEMPLATE_NAMES)[number];

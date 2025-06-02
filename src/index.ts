@@ -1,5 +1,6 @@
 import { ApiResponse } from "@core/classes/apiResponse";
 import { HttpStatus } from "@core/enums/http-status.enum";
+import { templateService } from "@shared/template/template.service";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 
@@ -21,16 +22,16 @@ app.onError((err, c) => {
 
 app.get("/", async (c) => {
 	// return ApiResponse.success({}).toResponse(c);
-	// try {
-	//   const res = await TemplateService.instance.render("order-recieved", {
-	//     name: "abcd",
-	//   });
-	//   return c.html(`Hello Hono! <br/> ${res}`);
-	// } catch (error) {
-	//   throw new HTTPException(HttpStatus.INTERNAL_SERVER_ERROR, {
-	//     message: error instanceof Error ? error.message : "Unknown error",
-	//   });
-	// }
+	try {
+		const res = await templateService.render("order-recieved", {
+			name: "abcd",
+		});
+		return c.html(`Hello Hono! <br/> ${res}`);
+	} catch (error) {
+		throw new HTTPException(HttpStatus.INTERNAL_SERVER_ERROR, {
+			message: error instanceof Error ? error.message : "Unknown error",
+		});
+	}
 });
 
 export default app;

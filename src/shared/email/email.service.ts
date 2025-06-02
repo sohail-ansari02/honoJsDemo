@@ -4,7 +4,7 @@ import { validate as emailValidate } from "deep-email-validator";
 import { type Transporter, createTransport } from "nodemailer";
 import type { EmailPayload } from "./email.types";
 
-export class EmailService {
+class EmailService {
 	private static _instance: EmailService;
 	private transporter!: Transporter;
 
@@ -74,3 +74,5 @@ export class EmailService {
 		// return template(data);
 	}
 }
+
+export const emailService = EmailService.instance;
