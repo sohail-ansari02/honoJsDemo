@@ -1,6 +1,6 @@
 import { ApiResponse } from "@core/classes/apiResponse";
 import { HttpStatus } from "@core/enums/http-status.enum";
-import { templateService } from "@shared/template/template.service";
+import { templateService } from "@core/services/template/template.service";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 
@@ -23,7 +23,7 @@ app.onError((err, c) => {
 app.get("/", async (c) => {
 	// return ApiResponse.success({}).toResponse(c);
 	try {
-		const res = await templateService.render("order-recieved", {
+		const res = await templateService.render("order-recieved", "email", {
 			name: "abcd",
 		});
 		return c.html(`Hello Hono! <br/> ${res}`);

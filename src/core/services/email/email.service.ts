@@ -1,4 +1,4 @@
-import { BRAND_NAME } from "@config/constants/organization";
+import { ORGNIZATION } from "@config/constants/organization";
 import { FileUtil } from "@core/utils/file";
 import { validate as emailValidate } from "deep-email-validator";
 import { type Transporter, createTransport } from "nodemailer";
@@ -54,7 +54,7 @@ class EmailService {
 
 		try {
 			await this.transporter.sendMail({
-				from: `${BRAND_NAME} ${process.env.EMAIL_USER}`,
+				from: `${ORGNIZATION.NAME} ${process.env.EMAIL_USER}`,
 				to: payload.to,
 				subject: payload.subject,
 				html: payload.html,
