@@ -15,7 +15,7 @@ app.onError((err, c) => {
 	}
 
 	return ApiResponse.error(
-		"Internal Server Error",
+		err instanceof Error ? err.message : "Internal Server Error",
 		HttpStatus.INTERNAL_SERVER_ERROR,
 	).toResponse(c);
 });

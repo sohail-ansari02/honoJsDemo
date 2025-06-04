@@ -31,7 +31,7 @@ class TemplateService {
 		try {
 			const filePath = `${this.getTemplatePath(
 				type,
-			)}/${templateName}.${TEMPLATE_FILE_EXT}`;
+			)}/${templateName}.${TEMPLATE_FILE_EXT}asd`;
 			const content = await FileUtil.readFile(filePath);
 			return Mustache.render(content, data);
 		} catch (e) {
