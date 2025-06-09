@@ -13,7 +13,7 @@ export type Meta = {
 };
 
 export class ApiResponse<T> {
-	// for best pratces I made constructor private, so developer will always use statis method 'success' and 'error'
+	// for best pratces I made constructor private, so developer will always use static methods 'success' and 'error'
 	private constructor(
 		public readonly success: boolean,
 		public readonly status: ContentfulStatusCode,
@@ -26,7 +26,7 @@ export class ApiResponse<T> {
 	static success<T>(
 		data: T,
 		message = "Success",
-		status: ContentfulStatusCode = HttpStatus.INTERNAL_SERVER_ERROR,
+		status: ContentfulStatusCode = HttpStatus.OK,
 		meta?: Meta,
 	): ApiResponse<T> {
 		return new ApiResponse(true, status, message, data, {
